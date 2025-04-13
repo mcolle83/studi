@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhml" xmlns:th="http://www.thymeleaf.org">
+    <head th:fragment="html_head">
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Jeux Olympiques de Paris 2024</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body th:fragment="menu">
+        <nav class="navbar navbar-expand-lg" style="background-color: #77b5fe;">
+          <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/}">
+              <img th:src="@{logo_jo.png}" alt="Logo JO" width="30" height="auto">
+            </a>
+            <a class="navbar-brand" th:href="@{/}">Jeux Olympiques de Paris 2024</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" th:href="@{/}">Accueil</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" th:href="@{/offres}">Liste des offres</a>
+                </li>
+                <li th:if="${session.utilisateur != null}" class="nav-item">
+                    <a class="nav-link disabled" aria-disabled="true" th:text="'Bienvenue ' + ${session.utilisateur.prenom} + ' ' + ${session.utilisateur.nom}"></a>
+                </li>
+                <li th:if="${session.utilisateur != null}" class="nav-item">
+                    <a class="nav-link" th:href="@{/compteclient}">Mon compte</a>
+                </li>
+                <li th:if="${session.utilisateur != null}" class="nav-item">
+                  <a class="nav-link" th:href="@{/listeachatsutil}">Mes achats effectues</a>
+                </li>
+                <li th:if="${session.utilisateur != null}" class="nav-item">
+                    <a class="nav-link" th:href="@{/deconnexion}">Deconnexion</a>
+                </li>
+                <li th:if="${session.utilisateur != null and session.utilisateur.role == 'Administrateur'}" class="nav-item">
+                  <a class="nav-link" th:href="@{/creationoffre}">Creer une offre</a>
+                </li>
+                <li th:if="${session.utilisateur != null and session.utilisateur.role == 'Administrateur'}" class="nav-item">
+                    <a class="nav-link" th:href="@{/gestionoffres}">Gerer les offres</a>
+                </li>
+                <li th:if="${session.utilisateur != null and session.utilisateur.role == 'Administrateur'}" class="nav-item">
+                  <a class="nav-link" th:href="@{/listeachatsadmin}">Achats effectues</a>
+                </li>
+                <li th:unless="${session.utilisateur != null}" class="nav-item">
+                    <a class="nav-link" th:href="@{/inscription}">Inscription</a>
+                </li>
+                <li th:unless="${session.utilisateur != null}" class="nav-item">
+                    <a class="nav-link" th:href="@{/connexion}">Connexion</a>
+                </li>
+                <a class="navbar-brand" th:href="@{/panier}">
+                  <img th:src="@{logo_panier.png}" alt="Logo panier" width="30" height="auto">
+                </a>
+              </ul>
+            </div>
+          </div>
+        </nav>
+    </body>
+        <footer th:fragment="footer" class="py-2 border border-2 border-success-subtle rounded-3">
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+              <li class="nav-item"><a href="@{/mentionslegales}" class="nav-link px-2 text-dark">Mentions légales</a></li>
+              <li class="nav-item"><a href="@{/politiqueconfid}" class="nav-link px-2 text-dark">Politique de confidentialité</a></li>             
+              <li class="nav-item"><a href="@{/cgv}" class="nav-link px-2 text-dark">Conditions générales de vente</a></li>
+              <li class="nav-item"><a href="@{/contact}" class="nav-link px-2 text-dark">Contact</a></li>             
+            </ul>
+            <p class="text-center text-success">&copy; 2025 Studi</p>
+          </footer>
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+          <script src="https://unpkg.com/@google-pay/button-element@3.x/dist/index.umd.min.js"></script>
+          <script src="achat.js"></script>
+    </html>

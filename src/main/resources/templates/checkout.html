@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title>Jeux Olympiques de Paris 2024</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/checkout.css" />
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <script th:inline="javascript">
+
+        /*<![CDATA[*/
+
+        var publicKey = /*[[${publicKey}]]*/ null;
+        var amount = /*[[${amount}]]*/ null;
+        var email = /*[[${email}]]*/ null;
+        var productName = /*[[${productName}]]*/ null;
+
+        /*]]>*/
+    </script>
+
+    <script src="/checkout.js" defer></script>
+</head>
+<body>
+<form id="payment-form">
+    <h2>Paiement JO</h2>
+    <span>Vous etes sur le point de payer un panier valant: </span>
+    <span th:text="*{amount}"></span>
+    <span>EUR</span>
+    <div id="link-authentication-element">
+    </div>
+    <div id="payment-element">
+    </div>
+    <button id="submit">
+        <div class="spinner hidden" id="spinner"></div>
+        <span id="button-text">Payer</span>
+    </button>
+    <div id="payment-message" class="hidden"></div>
+</form>
+</body>
+</html>

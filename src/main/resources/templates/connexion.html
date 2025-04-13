@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{fragments :: html_head}"></head>
+    <body th:replace="~{fragments :: menu}"></body>
+    <form method="post" th:action="@{/connexion}" th:object="${utilisateur}" class="row g-3">
+        <div class="col-3">
+          <label for="inputEmail" class="form-label">Adresse email</label>
+          <input type="email" class="form-control" name="inputEmail" th:field="*{email}" placeholder="nomemail@gmail.com" required>
+        </div>
+        <div class="col-9"></div>
+        <div class="col-3">
+          <label for="inputMotdepasse" class="form-label">Mot de passe</label>
+          <input type="password" class="form-control" name="inputMotdepasse" th:field="*{motdepasse}" required>
+        </div>
+        <div class="col-9"></div>
+        <div class="col-12">
+            <label for="boutonInscription" class="form-label">Pas de compte ?</label>
+            <a class="btn btn-secondary" href="/inscription" role="button" name="boutonInscription">S'inscrire</a>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary" name="boutonConfirmerconnexion">Se connecter</button>
+          <p class="text-danger" name="messageErreur" th:text="${messageErreur}"></p>
+          <p class="text-success" name="messageSucces" th:text="${messageSucces}"></p>
+        </div>
+    </form>
+    <footer th:replace="~{fragments :: footer}"></footer>
+</html>

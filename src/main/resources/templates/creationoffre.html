@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{fragments :: html_head}"></head>
+    <body th:replace="~{fragments :: menu}"></body>
+          <form method="post" th:action="@{/creationoffre}" th:object="${epreuve}" class="row g-3">
+            <div class="col-md-6">
+              <label for="inputNomepreuve" class="form-label">Nom</label>
+              <input type="text" class="form-control" name="inputNomepreuve" th:field="*{nom}" required>
+            </div>
+            <div class="col-md-6">
+              <label for="inputDiscipline" class="form-label">Discipline</label>
+              <input type="text" class="form-control" name="inputDiscipline" th:field="*{discipline}" required>
+            </div>
+            <div class="col-md-6">
+              <label for="inputLieu" class="form-label">Lieu</label>
+              <input type="text" class="form-control" name="inputLieu" th:field="*{lieu}" required>
+            </div>
+            <div class="col-md-6">
+              <label for="inputVille" class="form-label">Ville</label>
+              <input type="text" class="form-control" name="inputVille" th:field="*{ville}" required>
+            </div>
+            <div class="col-md-6">
+              <label for="inputDate" class="form-label">Date</label>
+              <input type="datetime-local" class="form-control" name="inputDate" th:field="*{date}" required>
+            </div>
+            <div class="col-md-6">
+              <label for="inputPlace" class="form-label">Capacite</label>
+              <input type="number" class="form-control" name="inputPlace" min="0" th:field="*{capacite}" required>
+            </div>
+            <div class="col-md-6">
+              <label for="inputPrix" class="form-label">Prix unitaire</label>
+              <input type="number" class="form-control" name="inputPrix" placeholder="0.50" step="0.01" min="0" th:field="*{prix}" required>
+            </div>
+            <div class="col-12">
+              <label for="inputDesc" class="form-label">Description (facultatif)</label>
+              <input type="textarea" class="form-control" name="inputDesc" th:field="*{description}">
+            </div>
+            <div class="col-md-6">
+              <label for="inputImage" class="form-label">Image (facultative)</label>
+              <input type="file" class="form-control" name="inputImage" accept="image/*" th:field="*{image}">
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary" name="boutonCreeroffre">Creer l offre</button>
+              <p class="text-danger" name="messageErreur" th:text="${messageErreur}"></p>
+              <p class="text-success" name="messageSucces" th:text="${messageSucces}"></p>
+            </div>
+          </form>
+    <footer th:replace="~{fragments :: footer}"></footer>
+</html>

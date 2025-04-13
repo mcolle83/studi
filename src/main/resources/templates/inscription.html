@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{fragments :: html_head}"></head>
+    <body th:replace="~{fragments :: menu}"></body>
+    <form method="post" th:action="@{/inscription}" th:object="${utilisateur}" class="row g-3">
+    <div class="col-md-6">
+      <label for="inputNom" class="form-label">Nom</label>
+      <input type="text" class="form-control" name="inputNom" th:field="*{nom}" required>
+    </div>
+    <div class="col-md-6">
+      <label for="inputPrenom" class="form-label">Prénom</label>
+      <input type="text" class="form-control" name="inputPrenom" th:field="*{prenom}" required>
+    </div>
+    <div class="col-12">
+      <label for="inputEmail" class="form-label">Adresse email</label>
+      <input type="email" class="form-control" name="inputEmail" th:field="*{email}" placeholder="nom@gmail.com" required>
+    </div>
+    <div class="col-md-6">
+      <label for="inputMotdepasse" class="form-label">Mot de passe</label>
+      <input type="password" class="form-control" name="inputMotdepasse" th:field="*{motdepasse}" required>
+    </div>
+    <div class="col-md-6">
+      <label for="inputConfirmermdp" class="form-label">Confirmer mot de passe</label>
+      <input type="password" class="form-control" name="inputConfirmermdp" th:field="*{confirmermdp}" required>
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary" name="boutonConfirmerinscription">Confirmer l'inscription</button>
+      <p class="text-danger" name="messageErreur" th:text="${messageErreur}"></p>
+      <p class="text-success" name="messageSucces" th:text="${messageSucces}"></p>
+    </div>
+  </form>
+  <footer th:replace="~{fragments :: footer}"></footer>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{fragments :: html_head}"></head>
+    <body th:replace="~{fragments :: menu}"></body>
+<form method="post" th:action="@{/panier}" th:object="${panier}" class="row g-3">
+<ul class="list-group">
+        <li class="list-group-item border-info">Votre panier</li>
+   <ul class="list-group list-group-horizontal border-info">
+        <li class="col-1 list-group-item flex-fill">Epreuve</li>
+        <li class="col-1 list-group-item flex-fill">Nombre places</li>
+        <li class="col-1 list-group-item flex-fill">Prix Unitaire</li>
+        <li class="col-1 list-group-item flex-fill">Prix Total</li>
+        <li class="col-1 list-group-item flex-fill">Supprimer</li>
+   </ul>
+   <div th:if="${panierepreuve != null}">
+        <div th:each="panierepreuve: ${panierepreuve}">
+            <ul class="list-group list-group-horizontal">
+            <li class="col-1 list-group-item flex-fill" th:text="${panierepreuve.epreuve.nom}"></li>
+            <li class="col-1 list-group-item flex-fill"><button class="btn" name="action" style="background-color: #00c7be;" th:value="'boutonMoins' + ${panierepreuve.epreuve.id}" type="submit">-</button><p th:text="${panierepreuve.quantite}"></p><button class="btn" name="action" style="background-color: #00c7be;" th:value="'boutonPlus' + ${panierepreuve.epreuve.id}" type="submit">+</button></li>
+            <li class="col-1 list-group-item flex-fill" th:text="${panierepreuve.prixunitaire + ' €'}"></li>
+            <li class="col-1 list-group-item flex-fill" th:text="${panierepreuve.prixtotal + ' €'}"></li>
+            <li class="col-1 list-group-item flex-fill"><button class="btn btn-danger" name="action" th:value="'boutonSupprimer' + ${panierepreuve.epreuve.id}" type="submit">Supprimer</button></li>
+            </ul>
+        </div>
+
+          <tr><td colspan="4"> </td>
+          <ul class="list-group list-group-horizontal">
+          <li class="list-group-item">Total :</li>
+          <li class="list-group-item" th:text="${panier.prixtotal + ' €'}"></li>
+          </td></tr>
+
+          <tr><td colspan="4">
+          <a th:href="@{/panier}" class="btn" style="background-color: #00c7be;" type="submit">Rafraichir</a>
+          <a th:if="${session.utilisateur != null}" th:href="@{/paiement}" class="btn" style="background-color: #00c7be;" type="submit" name="boutonPayer">Payer</a>
+          <a th:unless="${session.utilisateur != null}" th:href="@{/connexion}" class="btn" style="background-color: #00c7be;" type="submit" name="boutonConnexion">Connectez-vous pour pouvoir payer</a>
+          </td></tr>
+    </div>
+    <div th:unless="${panierepreuve != null}">
+        <tr><td>Votre panier est vide </td></tr>
+    </div>
+</ul>
+</form>
+<footer th:replace="~{fragments :: footer}"></footer>
+</html>

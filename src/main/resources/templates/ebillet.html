@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{fragments :: html_head}"></head>
+    <body th:replace="~{fragments :: menu}"></body>
+    <div class="row g-3">
+        <p th:text="${'Acheteur : ' + achatepreuve.achat.utilisateur.prenom + ' ' + achatepreuve.achat.utilisateur.nom}"></p>
+        <p th:text="${'Date : ' + achatepreuve.achat.date}"></p>
+        <p th:text="${'Epreuve : ' + achatepreuve.epreuve.nom}"></p>
+        <img th:src="'data:image/png;base64,' + ${qrcode}"></img>
+    </div>
+<footer th:replace="~{fragments :: footer}"></footer>
+</html>

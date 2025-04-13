@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{fragments :: html_head}"></head>
+    <body th:replace="~{fragments :: menu}"></body>
+<ul class="list-group">
+        <li class="list-group-item border-info">Liste des achats</li>
+   <ul class="list-group list-group-horizontal border-info">
+        <li class="col-1 list-group-item flex-fill">Acheteur</li>
+        <li class="col-1 list-group-item flex-fill">Date achat</li>
+        <li class="col-1 list-group-item flex-fill">Epreuve</li>
+        <li class="col-1 list-group-item flex-fill">Quantite</li>
+        <li class="col-1 list-group-item flex-fill">Prix Total</li>
+   </ul>
+   <div th:if="${achatepreuve != null}">
+        <div th:each="achatepreuve: ${achatepreuve}">
+            <ul class="list-group list-group-horizontal">
+            <li class="col-1 list-group-item flex-fill" th:text="${achatepreuve.achat.utilisateur.prenom + ' ' + achatepreuve.achat.utilisateur.nom + ' &#40;' + achatepreuve.achat.utilisateur.email + '&#41;'}"></li>
+            <li class="col-1 list-group-item flex-fill" th:text="${#temporals.format(achatepreuve.achat.date, 'dd MMMM yyyy, HH:mm')}"></li>
+            <li class="col-1 list-group-item flex-fill" th:text="${achatepreuve.epreuve.nom}"></li>
+            <li class="col-1 list-group-item flex-fill" th:text="${achatepreuve.quantite}"></li>
+            <li class="col-1 list-group-item flex-fill" th:text="${achatepreuve.prixtotal + ' €'}"></li>
+            </ul>
+        </div>
+    </div>
+    <div th:unless="${achatepreuve != null}">
+        <tr><td>Personne n a encore fait d achat</td></tr>
+    </div>
+</ul>
+<footer th:replace="~{fragments :: footer}"></footer>
+</html>

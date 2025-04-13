@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{fragments :: html_head}"></head>
+    <body th:replace="~{fragments :: menu}"></body>
+    <form method="post" th:action="@{/compteclient}" th:object="${utilisateur}" class="row g-3">
+        <div class="col-3">
+          <label for="inputNom" class="form-label">Nom</label>
+          <input type="text" class="form-control" name="inputNom" th:field="*{nom}" th:value="${utilisateur.nom}">
+        </div>
+        <div class="col-9"></div>
+        <div class="col-3">
+          <label for="inputPrenom" class="form-label">Prenom</label>
+          <input type="text" class="form-control" name="inputPrenom" th:field="*{prenom}" th:value="${utilisateur.prenom}">
+        </div>
+        <div class="col-9"></div>
+        <div class="col-3">
+          <label for="inputEmail" class="form-label">Adresse email</label>
+          <input type="email" class="form-control" name="inputEmail" th:field="*{email}" th:value="${utilisateur.email}">
+        </div>
+        <div class="col-9"></div>
+        <div class="col-3">
+            <label for="inputVerif" class="form-label">Inserez votre mot de passe actuel pour confirmer la mise a jour de votre profil</label>
+            <input type="password" class="form-control" name="inputVerif" th:field="*{confirmermdp}">
+        </div>
+        <div class="col-9"></div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary" name="action" value="boutonMajprofil">Mettre a jour le profil</button>
+          <p class="text-danger" name="messageErreur1" th:text="${messageErreur1}"></p>
+          <p class="text-success" name="messageSucces1" th:text="${messageSucces1}"></p>
+        </div>
+        <hr>
+        <div class="col-3">
+          <label for="inputMdpact" class="form-label">Mot de passe actuel</label>
+          <input type="password" class="form-control" name="inputMdpact">
+        </div>
+        <div class="col-9"></div>
+        <div class="col-3">
+          <label for="inputNouvmdp" class="form-label">Nouveau mot de passe</label>
+          <input type="password" class="form-control" name="inputNouvmdp">
+        </div>
+        <div class="col-9"></div>
+        <div class="col-3">
+            <label for="inputConfirmermdp" class="form-label">Confirmer nouveau mot de passe</label>
+            <input type="password" class="form-control" name="inputConfirmermdp">
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary" name="action" value="boutonMajmdp">Mettre a jour le mot de passe</button>
+          <p class="text-danger" name="messageErreur2" th:text="${messageErreur2}"></p>
+          <p class="text-success" name="messageSucces2" th:text="${messageSucces2}"></p>
+        </div>
+    </form>
+    <footer th:replace="~{fragments :: footer}"></footer>
+</html>
