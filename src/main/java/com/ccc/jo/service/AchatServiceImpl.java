@@ -10,6 +10,7 @@ import jakarta.mail.internet.*;
 import java.util.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -82,7 +83,7 @@ public class AchatServiceImpl implements AchatService {
             msg.setFrom(new InternetAddress(mailusername));
             msg.setRecipient(Message.RecipientType.TO, new InternetAddress(utilisateur.getEmail()));
             msg.setSubject("Achat effectue");
-            msg.setText("Bienvenue " + utilisateur.getPrenom() + " " + utilisateur.getNom() + " ! Vous avez fait un achat le " + achat.getDate() + " . Pour recuperer le QRCode de chaque epreuve que vous avez achete, merci d'acceder a 'mes achats effectues' .");
+            msg.setText("Bienvenue " + utilisateur.getPrenom() + " " + utilisateur.getNom() + " ! Vous avez fait un achat le " + achat.getDate().format(DateTimeFormatter.ofPattern("dd MMMM yyyy")) + " a " + achat.getDate().format(DateTimeFormatter.ofPattern("HH:mm")) + " . Pour recuperer le QRCode de chaque epreuve que vous avez achete, merci d'acceder a 'mes achats effectues' .");
             Transport.send(msg);
             } catch (MessagingException e) {
             System.out.println("Une erreur est arrivee lors de l envoi d email");

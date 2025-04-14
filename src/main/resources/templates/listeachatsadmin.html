@@ -5,6 +5,27 @@
 <ul class="list-group">
         <li class="list-group-item border-info">Liste des achats</li>
    <ul class="list-group list-group-horizontal border-info">
+        <li class="col-1 list-group-item flex-fill">Offre</li>
+        <li class="col-1 list-group-item flex-fill">Nombre d achats</li>
+   </ul>
+   <div th:if="${achatepreuve != null}">
+        <ul class="list-group list-group-horizontal">
+        <li class="col-1 list-group-item flex-fill">Individuelle (1 place)</li>
+        <li class="col-1 list-group-item flex-fill" th:text="${quantitesolo}"></li>
+        </ul>
+        <ul class="list-group list-group-horizontal">
+        <li class="col-1 list-group-item flex-fill">Duo (2 places)</li>
+        <li class="col-1 list-group-item flex-fill" th:text="${quantiteduo}"></li>
+        </ul>
+        <ul class="list-group list-group-horizontal">
+        <li class="col-1 list-group-item flex-fill">Familiale (4 places)</li>
+        <li class="col-1 list-group-item flex-fill" th:text="${quantitefamille}"></li>
+        </ul>
+    </div>
+<hr>
+<ul class="list-group">
+        <li class="list-group-item border-info">Liste des achats</li>
+   <ul class="list-group list-group-horizontal border-info">
         <li class="col-1 list-group-item flex-fill">Acheteur</li>
         <li class="col-1 list-group-item flex-fill">Date achat</li>
         <li class="col-1 list-group-item flex-fill">Epreuve</li>

@@ -63,7 +63,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         /*newUtilisateur.setMotdepasse(passwordEncoder.encode(utilisateur.getMotdepasse()));*/
 		newUtilisateur.setCle(UUID.randomUUID().toString());
 		newUtilisateur.setRole("Utilisateur");
-        newUtilisateur.setActive(true); // passera à "false" quand l'envoi d'email sera réintégré
+        newUtilisateur.setActive(false);
         utilisateur.setTokenconfirm(UUID.randomUUID().toString());
         newUtilisateur.setTokenconfirm(utilisateur.getTokenconfirm());
         utilisateurRepository.save(newUtilisateur);

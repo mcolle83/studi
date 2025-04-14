@@ -47,6 +47,12 @@ public class AchatController {
             Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
             if (utilisateur.getRole().equals("Administrateur")) {
             List<AchatEpreuve> achatepreuve = achatepreuveService.getAllAchatEpreuves();
+            Long quantitesolo = achatepreuveService.getAchatEpreuveCountByQuantite(1);
+            Long quantiteduo = achatepreuveService.getAchatEpreuveCountByQuantite(2);
+            Long quantitefamille = achatepreuveService.getAchatEpreuveCountByQuantite(4);
+            model.addAttribute("quantitesolo", quantitesolo);
+            model.addAttribute("quantiteduo", quantiteduo);
+            model.addAttribute("quantitefamille", quantitefamille);
             model.addAttribute("achatepreuve", achatepreuve);
 		    return "listeachatsadmin";
             } else {

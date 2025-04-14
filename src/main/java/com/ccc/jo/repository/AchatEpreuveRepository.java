@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AchatEpreuveRepository extends JpaRepository<AchatEpreuve, Long> {
-    
+    long countByQuantite(Integer quantite);
 }

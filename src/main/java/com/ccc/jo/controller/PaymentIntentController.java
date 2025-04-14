@@ -1,5 +1,6 @@
 package com.ccc.jo.controller;
 
+import com.ccc.jo.model.Achat;
 import com.ccc.jo.model.AchatEpreuve;
 import com.ccc.jo.model.Panier;
 import com.ccc.jo.model.PanierEpreuve;
@@ -77,8 +78,8 @@ public class PaymentIntentController {
                         achatepreuve.setPrixunitaire(panierepreuve.getPrixunitaire());
                         achatepreuveService.createAchatEpreuve(achatepreuve);
                 }
-                //Achat achat = achatService.getAchatById(idachat);
-                //utilisateurService.sendEmailAchat(utilisateur, achat); //envoi d'email temporairement desactivé
+                Achat achat = achatService.getAchatById(idachat);
+                achatService.sendEmailAchat(utilisateur, achat);
                 panierService.clearPanier(idpanier);
         }}
 

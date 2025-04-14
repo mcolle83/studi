@@ -56,7 +56,7 @@ public class UtilisateurController {
 		if (utilisateurService.getUtilisateurByEmail(utilisateur.getEmail()) == null) {
 			if (utilisateur.compareMotdepasse(utilisateur.getMotdepasse(), utilisateur.getConfirmermdp())) {
         	utilisateurService.createUtilisateur(utilisateur);
-            //utilisateurService.sendEmailConfirmation(utilisateur); //envoi d'email temporairement desactivé
+            utilisateurService.sendEmailConfirmation(utilisateur);
 			model.addAttribute("messageSucces", "Vous vous etes inscrits avec succes");
             return "inscription";
 			}else{

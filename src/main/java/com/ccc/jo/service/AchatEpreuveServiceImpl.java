@@ -66,4 +66,9 @@ public class AchatEpreuveServiceImpl implements AchatEpreuveService {
         Achat achat = achatService.getAchatById(idachat);
         return  achat.getEpreuves();
     }
+
+    @Override
+    public long getAchatEpreuveCountByQuantite(Integer quantite){
+        return achatepreuveRepository.countByQuantite(quantite);
+    }
 }

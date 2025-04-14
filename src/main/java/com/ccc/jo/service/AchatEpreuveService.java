@@ -17,4 +17,6 @@ public interface AchatEpreuveService {
     void deleteAchatEpreuve(Long id);
 
     Set<AchatEpreuve> getAllAchatEpreuves(Long idachat);
+
+    long getAchatEpreuveCountByQuantite(Integer quantite);
 }
