@@ -32,19 +32,19 @@
                     <a class="nav-link" th:href="@{/compteclient}">Mon compte</a>
                 </li>
                 <li th:if="${session.utilisateur != null}" class="nav-item">
-                  <a class="nav-link" th:href="@{/listeachatsutil}">Mes achats effectues</a>
+                  <a class="nav-link" th:href="@{/listeachatsutil}">Mes achats effectués</a>
                 </li>
                 <li th:if="${session.utilisateur != null}" class="nav-item">
-                    <a class="nav-link" th:href="@{/deconnexion}">Deconnexion</a>
+                    <a class="nav-link" th:href="@{/deconnexion}">Déconnexion</a>
                 </li>
                 <li th:if="${session.utilisateur != null and session.utilisateur.role == 'Administrateur'}" class="nav-item">
-                  <a class="nav-link" th:href="@{/creationoffre}">Creer une offre</a>
+                  <a class="nav-link" th:href="@{/creationoffre}">Créer une offre</a>
                 </li>
                 <li th:if="${session.utilisateur != null and session.utilisateur.role == 'Administrateur'}" class="nav-item">
-                    <a class="nav-link" th:href="@{/gestionoffres}">Gerer les offres</a>
+                    <a class="nav-link" th:href="@{/gestionoffres}">Gérer les offres</a>
                 </li>
                 <li th:if="${session.utilisateur != null and session.utilisateur.role == 'Administrateur'}" class="nav-item">
-                  <a class="nav-link" th:href="@{/listeachatsadmin}">Achats effectues</a>
+                  <a class="nav-link" th:href="@{/listeachatsadmin}">Achats effectués</a>
                 </li>
                 <li th:unless="${session.utilisateur != null}" class="nav-item">
                     <a class="nav-link" th:href="@{/inscription}">Inscription</a>

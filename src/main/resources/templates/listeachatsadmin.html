@@ -6,7 +6,7 @@
         <li class="list-group-item border-info">Liste des achats</li>
    <ul class="list-group list-group-horizontal border-info">
         <li class="col-1 list-group-item flex-fill">Offre</li>
-        <li class="col-1 list-group-item flex-fill">Nombre d achats</li>
+        <li class="col-1 list-group-item flex-fill">Nombre d&#39;achats</li>
    </ul>
    <div th:if="${achatepreuve != null}">
         <ul class="list-group list-group-horizontal">
@@ -28,8 +28,8 @@
    <ul class="list-group list-group-horizontal border-info">
         <li class="col-1 list-group-item flex-fill">Acheteur</li>
         <li class="col-1 list-group-item flex-fill">Date achat</li>
-        <li class="col-1 list-group-item flex-fill">Epreuve</li>
-        <li class="col-1 list-group-item flex-fill">Quantite</li>
+        <li class="col-1 list-group-item flex-fill">Épreuve</li>
+        <li class="col-1 list-group-item flex-fill">Quantité</li>
         <li class="col-1 list-group-item flex-fill">Prix Total</li>
    </ul>
    <div th:if="${achatepreuve != null}">
@@ -44,7 +44,7 @@
         </div>
     </div>
     <div th:unless="${achatepreuve != null}">
-        <tr><td>Personne n a encore fait d achat</td></tr>
+        <tr><td>Personne n&#39;a encore fait d&#39;achat</td></tr>
     </div>
 </ul>
 <footer th:replace="~{fragments :: footer}"></footer>

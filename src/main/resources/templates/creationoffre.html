@@ -24,7 +24,7 @@
               <input type="datetime-local" class="form-control" name="inputDate" th:field="*{date}" required>
             </div>
             <div class="col-md-6">
-              <label for="inputPlace" class="form-label">Capacite</label>
+              <label for="inputPlace" class="form-label">Capacité</label>
               <input type="number" class="form-control" name="inputPlace" min="0" th:field="*{capacite}" required>
             </div>
             <div class="col-md-6">
@@ -40,7 +40,7 @@
               <input type="file" class="form-control" name="inputImage" accept="image/*" th:field="*{image}">
             </div>
             <div class="col-12">
-              <button type="submit" class="btn btn-primary" name="boutonCreeroffre">Creer l offre</button>
+              <button type="submit" class="btn btn-primary" name="boutonCreeroffre">Créer l&#39;offre</button>
               <p class="text-danger" name="messageErreur" th:text="${messageErreur}"></p>
               <p class="text-success" name="messageSucces" th:text="${messageSucces}"></p>
             </div>

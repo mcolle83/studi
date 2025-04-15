@@ -113,7 +113,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         };
         Session session = Session.getInstance(props, auth);
         MimeMessage msg = new MimeMessage(session);
-        String link = "http://localhost:9001/active=" + utilisateur.getTokenconfirm();
+        String link = "https://studi-e7e2bdae765d.herokuapp.com/active=" + utilisateur.getTokenconfirm();
             try {
             msg.setFrom(new InternetAddress(mailusername));
             msg.setRecipient(Message.RecipientType.TO, new InternetAddress(utilisateur.getEmail()));

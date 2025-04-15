@@ -48,7 +48,7 @@ public class EpreuveController {
     @PostMapping("/creationoffre")
     public String createOffre(Model model, @ModelAttribute("epreuve") Epreuve epreuve) {
         epreuveService.createEpreuve(epreuve);
-		model.addAttribute("messageSucces", "L epreuve a ete cree avec succes");
+		model.addAttribute("messageSucces", "L&#39;épreuve a été crée avec succès");
         return "creationoffre";
     }
 
@@ -73,11 +73,11 @@ public class EpreuveController {
     public String updateOffre(Model model, @ModelAttribute("epreuve") Epreuve epreuve, @RequestParam(value="action", required=true) String action) {
         if (action.equals("boutonModifieroffre")) {
             epreuveService.updateEpreuve(epreuve);
-		    model.addAttribute("messageSucces1", "L epreuve a ete modifiee avec succes");
+		    model.addAttribute("messageSucces1", "L&#39;épreuve a été modifiée avec succès");
         }
         if (action.equals("boutonSupprimeroffre")) {
             epreuveService.deleteEpreuve(epreuve.getId());
-            model.addAttribute("messageSucces2", "L epreuve a ete supprimee avec succes");
+            model.addAttribute("messageSucces2", "L&#39;épreuve a été supprimée avec succès");
         }
         return "gestionoffres";
     }

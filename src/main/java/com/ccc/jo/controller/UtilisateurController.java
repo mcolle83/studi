@@ -34,6 +34,26 @@ public class UtilisateurController {
 		return "accueil";
 	}
 
+    @GetMapping("/mentionslegales")
+	public String showMentionsLegales() {
+		return "mentionslegales";
+	}
+
+    @GetMapping("/politiqueconfid")
+	public String showPolitiqueConfid() {
+		return "politiqueconfid";
+	}
+
+    @GetMapping("/cgv")
+	public String showCGV() {
+		return "cgv";
+	}
+
+    @GetMapping("/contact")
+	public String showContact() {
+		return "contact";
+	}
+
     @GetMapping("/listeclients")
     public String getAllUtilisateurs(Model model) {
         List<Utilisateur> utilisateurs = utilisateurService.getAllUtilisateurs();
@@ -57,13 +77,13 @@ public class UtilisateurController {
 			if (utilisateur.compareMotdepasse(utilisateur.getMotdepasse(), utilisateur.getConfirmermdp())) {
         	utilisateurService.createUtilisateur(utilisateur);
             utilisateurService.sendEmailConfirmation(utilisateur);
-			model.addAttribute("messageSucces", "Vous vous etes inscrits avec succes");
+			model.addAttribute("messageSucces", "Vous vous êtes inscrits avec succès");
             return "inscription";
 			}else{
-			model.addAttribute("messageErreur", "Les deux mots de passes sont differents");
+			model.addAttribute("messageErreur", "Les deux mots de passes sont différents");
 			return "inscription";
 		}}else{
-			model.addAttribute("messageErreur", "Un utilisateur est deja inscrit avec cet email");
+			model.addAttribute("messageErreur", "Un utilisateur est déjà inscrit avec cet email");
 			return "inscription";
 		}
     }
@@ -74,7 +94,7 @@ public class UtilisateurController {
             utilisateurService.activeUtilisateur(tokenconfirm);
             if (session.getAttribute("utilisateur") == null) {
             model.addAttribute("utilisateur", new Utilisateur());
-            model.addAttribute("messageSucces", "Votre compte a ete activee avec succes");
+            model.addAttribute("messageSucces", "Votre compte a ete activée avec succès");
             return "connexion";
         }else{
             return "accueil";
@@ -133,10 +153,10 @@ public class UtilisateurController {
                             updatedUtilisateur.setId(existingUtilisateur.getId());
                             updatedUtilisateur = utilisateurService.updateUtilisateur(updatedUtilisateur.getId(), updatedUtilisateur.getNom(), updatedUtilisateur.getPrenom(), updatedUtilisateur.getEmail());
                             session.setAttribute("utilisateur", updatedUtilisateur);
-                            model.addAttribute("messageSucces1", "Votre profil a ete mis a jour avec succes");
+                            model.addAttribute("messageSucces1", "Votre profil a été mis à jour avec succès");
                         }
                     } else {
-                        model.addAttribute("messageErreur1", "Les nouvelles infos ne peuvent pas etre les memes que celles actuelles");
+                        model.addAttribute("messageErreur1", "Les nouvelles infos ne peuvent pas être les mêmes que celles actuelles");
                     }
                 } else {
                     model.addAttribute("messageErreur1", "Le mot de passe de confirmation est incorrect");
@@ -153,12 +173,12 @@ public class UtilisateurController {
                             updatedUtilisateur.setId(existingUtilisateur.getId());
                             updatedUtilisateur = utilisateurService.updateMotdepasse(updatedUtilisateur.getId(), inputNouvmdp);                  
                             session.setAttribute("utilisateur", updatedUtilisateur);
-                            model.addAttribute("messageSucces2", "Votre mot de passe a ete mis a jour avec succes");
+                            model.addAttribute("messageSucces2", "Votre mot de passe a été mis à jour avec succès");
                         } else {
-                            model.addAttribute("messageErreur2", "Les deux nouveaux mots de passes sont differents");
+                            model.addAttribute("messageErreur2", "Les deux nouveaux mots de passes sont différents");
                         }
                     } else {
-                        model.addAttribute("messageErreur2", "Le nouveau mot de passe ne peut pas etre le meme que celui actuel");
+                        model.addAttribute("messageErreur2", "Le nouveau mot de passe ne peut pas être le même que celui actuel");
                     }
                 } else {
                     model.addAttribute("messageErreur2", "Le mot de passe actuel est incorrect");
