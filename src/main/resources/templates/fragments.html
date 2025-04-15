@@ -62,10 +62,10 @@
     </body>
         <footer th:fragment="footer" class="py-2 border border-2 border-success-subtle rounded-3">
             <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-              <li class="nav-item"><a href="@{/mentionslegales}" class="nav-link px-2 text-dark">Mentions légales</a></li>
-              <li class="nav-item"><a href="@{/politiqueconfid}" class="nav-link px-2 text-dark">Politique de confidentialité</a></li>             
-              <li class="nav-item"><a href="@{/cgv}" class="nav-link px-2 text-dark">Conditions générales de vente</a></li>
-              <li class="nav-item"><a href="@{/contact}" class="nav-link px-2 text-dark">Contact</a></li>             
+              <li class="nav-item"><a th:href="@{/mentionslegales}" class="nav-link px-2 text-dark">Mentions légales</a></li>
+              <li class="nav-item"><a th:href="@{/politiqueconfid}" class="nav-link px-2 text-dark">Politique de confidentialité</a></li>
+              <li class="nav-item"><a th:href="@{/cgv}" class="nav-link px-2 text-dark">Conditions générales de vente</a></li>
+              <li class="nav-item"><a th:href="@{/contact}" class="nav-link px-2 text-dark">Contact</a></li>
             </ul>
             <p class="text-center text-success">&copy; 2025 Studi</p>
           </footer>
