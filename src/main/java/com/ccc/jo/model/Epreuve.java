@@ -2,7 +2,6 @@ package com.ccc.jo.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import jakarta.persistence.*;
 

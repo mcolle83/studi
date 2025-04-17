@@ -118,10 +118,10 @@ public class UtilisateurServiceImpl implements UtilisateurService {
             msg.setFrom(new InternetAddress(mailusername));
             msg.setRecipient(Message.RecipientType.TO, new InternetAddress(utilisateur.getEmail()));
             msg.setSubject("Activation du compte");
-            msg.setText("Bienvenue " + utilisateur.getPrenom() + " " + utilisateur.getNom() + " ! Pour activer votre compte sur le site de reversation des JO 2024, cliquez sur ce lien : " + link);
+            msg.setText("Bienvenue " + utilisateur.getPrenom() + " " + utilisateur.getNom() + " ! Pour activer votre compte sur le site de réversation des JO 2024, cliquez sur ce lien : " + link);
             Transport.send(msg);
             } catch (MessagingException e) {
-            System.out.println("Une erreur est arrivee lors de l envoi d email");
+            System.out.println("Une erreur est arrivée lors de l'envoi d'email");
             }
     }
 

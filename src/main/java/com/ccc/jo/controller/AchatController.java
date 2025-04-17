@@ -5,27 +5,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ccc.jo.model.Achat;
 import com.ccc.jo.model.AchatEpreuve;
 import com.ccc.jo.model.Utilisateur;
 import com.ccc.jo.service.AchatEpreuveService;
-import com.ccc.jo.service.AchatService;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class AchatController {
 
-    private final AchatService achatService;
     private final AchatEpreuveService achatepreuveService;
 
     @Autowired
-    public AchatController(AchatService achatService, AchatEpreuveService achatepreuveService) {
-        this.achatService = achatService;
+    public AchatController(AchatEpreuveService achatepreuveService) {
         this.achatepreuveService = achatepreuveService;
     }
     

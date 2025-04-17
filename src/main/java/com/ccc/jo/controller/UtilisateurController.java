@@ -10,15 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.FileOutputStream;
-import java.io.File;
-import java.util.List;
-
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.client.j2se.MatrixToImageWriter;
-
 @Controller
 public class UtilisateurController {
 
@@ -54,13 +45,6 @@ public class UtilisateurController {
 		return "contact";
 	}
 
-    @GetMapping("/listeclients")
-    public String getAllUtilisateurs(Model model) {
-        List<Utilisateur> utilisateurs = utilisateurService.getAllUtilisateurs();
-        model.addAttribute("utilisateurs", utilisateurs);
-        return "utilisateurs";
-    }
-
     @GetMapping("/inscription")
     public String showInscriptionForm(Model model, HttpSession session) {
         if (session.getAttribute("utilisateur") == null) {
@@ -94,7 +78,7 @@ public class UtilisateurController {
             utilisateurService.activeUtilisateur(tokenconfirm);
             if (session.getAttribute("utilisateur") == null) {
             model.addAttribute("utilisateur", new Utilisateur());
-            model.addAttribute("messageSucces", "Votre compte a ete activée avec succès");
+            model.addAttribute("messageSucces", "Votre compte a été activée avec succès");
             return "connexion";
         }else{
             return "accueil";

@@ -36,7 +36,6 @@ public class PanierServiceImpl implements PanierService {
         panierepreuveRepository.deleteAllByPanierId(id);
         panier.getEpreuves().clear();
         panierRepository.deleteById(id);
-
     }
 
     @Override
@@ -50,7 +49,6 @@ public class PanierServiceImpl implements PanierService {
         Panier newpanier = new Panier();
         newpanier.setIdsession(idsession);
         return panierRepository.save(newpanier).getId();
-
     }
 
     @Override
