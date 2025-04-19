@@ -61,7 +61,7 @@ public class UtilisateurController {
 			if (utilisateur.compareMotdepasse(utilisateur.getMotdepasse(), utilisateur.getConfirmermdp())) {
         	utilisateurService.createUtilisateur(utilisateur);
             utilisateurService.sendEmailConfirmation(utilisateur);
-			model.addAttribute("messageSucces", "Vous vous êtes inscrits avec succès");
+			model.addAttribute("messageSucces", "Vous vous êtes inscrits avec succès. Un email vous a été envoyé afin d'activer votre compte.");
             return "inscription";
 			}else{
 			model.addAttribute("messageErreur", "Les deux mots de passes sont différents");
@@ -105,7 +105,7 @@ public class UtilisateurController {
                 session.setAttribute("utilisateur", loggedutilisateur);
 		        return "redirect:/";
             }else{
-                model.addAttribute("messageErreur", "Le compte est inactif");
+                model.addAttribute("messageErreur", "Le compte n'est pas activé. Vous devez cliquer sur le lien fourni dans l'email envoyé lors de votre inscription.");
                 return "connexion"; 
         }}else{
 			model.addAttribute("messageErreur", "Email ou mot de passe incorrect");
