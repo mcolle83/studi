@@ -6,7 +6,7 @@
             <div class="col-md-6">
               <label for="inputEpreuveact" class="form-label">Nom actuel</label>
               <select class="form-control" name="inputEpreuveact" th:field="*{id}">
-              <option th:each="epreuve : ${epreuves}" th:value="${epreuve.id}" th:text="${epreuve.nom}"></option>
+              <option th:each="epreuve : ${epreuves}" th:value="${epreuve.id}" th:text="${epreuve.nom + ' (' + epreuve.discipline + ')'}"></option>
               </select>
             </div>
             <div class="col-md-6">

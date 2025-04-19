@@ -9,7 +9,7 @@ import jakarta.mail.internet.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-/*import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;*/
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import java.util.*;
 
@@ -17,7 +17,6 @@ import java.util.*;
 public class UtilisateurServiceImpl implements UtilisateurService {
 
     private final UtilisateurRepository utilisateurRepository;
-    /*private BCryptPasswordEncoder passwordEncoder;*/
     @Value("${spring.mail.username}")
     private String mailusername;
     @Value("${spring.mail.password}")
@@ -44,11 +43,6 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     @Override
-    public Utilisateur getUtilisateurByEmailAndMotdepasse(String email, String motdepasse) {
-        return utilisateurRepository.findByEmailAndMotdepasse(email, motdepasse);
-    }
-
-    @Override
     public Utilisateur getUtilisateurByTokenconfirm(String tokenconfirm) {
         return utilisateurRepository.findByTokenconfirm(tokenconfirm);
     }
@@ -59,8 +53,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         newUtilisateur.setNom(utilisateur.getNom());
 		newUtilisateur.setPrenom(utilisateur.getPrenom());
         newUtilisateur.setEmail(utilisateur.getEmail());
-        newUtilisateur.setMotdepasse(utilisateur.getMotdepasse());
-        /*newUtilisateur.setMotdepasse(passwordEncoder.encode(utilisateur.getMotdepasse()));*/
+        newUtilisateur.setMotdepasse(BCrypt.hashpw(utilisateur.getMotdepasse(), BCrypt.gensalt(12)));
 		newUtilisateur.setCle(UUID.randomUUID().toString());
 		newUtilisateur.setRole("Utilisateur");
         newUtilisateur.setActive(false);
@@ -70,9 +63,29 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     @Override
+    public Boolean verifMotdepasse(String motdepasse, String cryptedMotdepasse) {
+        if (BCrypt.checkpw(motdepasse, cryptedMotdepasse))
+        {
+        return true;
+        }else{
+        return false;
+        }
+    }
+
+    @Override
     public Utilisateur loginUtilisateur(Utilisateur utilisateur) {
-        Utilisateur loggedutilisateur = getUtilisateurByEmailAndMotdepasse(utilisateur.getEmail(), utilisateur.getMotdepasse());
-        return loggedutilisateur;
+        Utilisateur loggedUtilisateur = getUtilisateurByEmail(utilisateur.getEmail());
+        if (loggedUtilisateur != null){
+            String cryptedMotdepasse = loggedUtilisateur.getMotdepasse();
+            if (BCrypt.checkpw(utilisateur.getMotdepasse(), cryptedMotdepasse))
+            {
+            return loggedUtilisateur;
+            }else{
+            return null;
+            }
+        }else{
+        return null;
+        }
     }
 
     @Override
@@ -88,7 +101,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     @Override
     public Utilisateur updateMotdepasse(Long id, String motdepasse) {
         Utilisateur updatedUtilisateur = utilisateurRepository.findById(id).orElse(null);
-        updatedUtilisateur.setMotdepasse(motdepasse);
+        updatedUtilisateur.setMotdepasse(BCrypt.hashpw(motdepasse, BCrypt.gensalt(12)));
         utilisateurRepository.save(updatedUtilisateur);
         return updatedUtilisateur;
     }

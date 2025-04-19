@@ -16,14 +16,14 @@
         <div th:each="panierepreuve: ${panierepreuve}">
             <ul class="list-group list-group-horizontal">
             <li class="col-1 list-group-item flex-fill" th:text="${panierepreuve.epreuve.nom}"></li>
-            <li class="col-1 list-group-item flex-fill"><button class="btn" name="action" style="background-color: #00c7be;" th:value="'boutonMoins' + ${panierepreuve.epreuve.id}" type="submit">-</button><p th:text="${panierepreuve.quantite}"></p><button class="btn" name="action" style="background-color: #00c7be;" th:value="'boutonPlus' + ${panierepreuve.epreuve.id}" type="submit">+</button></li>
+            <li class="col-1 list-group-item flex-fill"><button class="btn" name="action" style="background-color: #00c7be;" th:if="${panierepreuve.quantite > 1}" th:value="'boutonMoins' + ${panierepreuve.epreuve.id}" type="submit">-</button><p th:text="${panierepreuve.quantite}"></p><button class="btn" name="action" style="background-color: #00c7be;" th:if="${(panierepreuve.quantite < 2 && panierepreuve.epreuve.capacite >= 2) || (panierepreuve.quantite < 4 && panierepreuve.epreuve.capacite >= 4)}" th:value="'boutonPlus' + ${panierepreuve.epreuve.id}" type="submit">+</button></li>
             <li class="col-1 list-group-item flex-fill" th:text="${panierepreuve.prixunitaire + ' €'}"></li>
             <li class="col-1 list-group-item flex-fill" th:text="${panierepreuve.prixtotal + ' €'}"></li>
             <li class="col-1 list-group-item flex-fill"><button class="btn btn-danger" name="action" th:value="'boutonSupprimer' + ${panierepreuve.epreuve.id}" type="submit">Supprimer</button></li>
             </ul>
         </div>
 
-          <tr><td colspan="4"> </td>
+          <tr><td colspan="4">
           <ul class="list-group list-group-horizontal">
           <li class="list-group-item">Total :</li>
           <li class="list-group-item" th:text="${panier.prixtotal + ' €'}"></li>

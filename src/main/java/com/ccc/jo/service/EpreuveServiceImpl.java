@@ -43,23 +43,30 @@ public class EpreuveServiceImpl implements EpreuveService {
     }
 
     @Override
-    public void updateEpreuve(Epreuve updatedEpreuve) {
-        Epreuve existingEpreuve = epreuveRepository.findById(updatedEpreuve.getId()).orElse(null);
-        updatedEpreuve.setNom(existingEpreuve.getNom());
-        updatedEpreuve.setDiscipline(existingEpreuve.getDiscipline());
-        updatedEpreuve.setLieu(existingEpreuve.getLieu());
-        updatedEpreuve.setVille(existingEpreuve.getVille());
-        updatedEpreuve.setDate(existingEpreuve.getDate());
-        updatedEpreuve.setCapacite(existingEpreuve.getCapacite());
-        updatedEpreuve.setPrix(existingEpreuve.getPrix());
-        updatedEpreuve.setDescription(existingEpreuve.getDescription());
-        updatedEpreuve.setImage(existingEpreuve.getImage());
+    public void updateEpreuve(Epreuve newInfosEpreuve) {
+        Epreuve updatedEpreuve = epreuveRepository.findById(newInfosEpreuve.getId()).orElse(null);
+        updatedEpreuve.setNom(newInfosEpreuve.getNom());
+        updatedEpreuve.setDiscipline(newInfosEpreuve.getDiscipline());
+        updatedEpreuve.setLieu(newInfosEpreuve.getLieu());
+        updatedEpreuve.setVille(newInfosEpreuve.getVille());
+        updatedEpreuve.setDate(newInfosEpreuve.getDate());
+        updatedEpreuve.setCapacite(newInfosEpreuve.getCapacite());
+        updatedEpreuve.setPrix(newInfosEpreuve.getPrix());
+        updatedEpreuve.setDescription(newInfosEpreuve.getDescription());
+        updatedEpreuve.setImage(newInfosEpreuve.getImage());
         epreuveRepository.save(updatedEpreuve);
     }
 
     @Override
     public void deleteEpreuve(Long id) {
         epreuveRepository.deleteById(id);
+    }
+
+    @Override
+    public void reduceEpreuveCapacite(Long id, Integer quantite) {
+        Epreuve updatedEpreuve = epreuveRepository.findById(id).orElse(null);
+        updatedEpreuve.setCapacite(updatedEpreuve.getCapacite() - quantite);
+        epreuveRepository.save(updatedEpreuve);
     }
 
 }

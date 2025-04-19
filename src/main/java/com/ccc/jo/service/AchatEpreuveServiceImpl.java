@@ -43,12 +43,12 @@ public class AchatEpreuveServiceImpl implements AchatEpreuveService {
     }
 
     @Override
-    public void updateAchatEpreuve(AchatEpreuve updatedAchatepreuve) {
-        AchatEpreuve existingAchatepreuve = achatepreuveRepository.findById(updatedAchatepreuve.getId()).orElse(null);
-        updatedAchatepreuve.setAchat(existingAchatepreuve.getAchat());
-        updatedAchatepreuve.setEpreuve(existingAchatepreuve.getEpreuve());
-        updatedAchatepreuve.setQuantite(existingAchatepreuve.getQuantite());
-        updatedAchatepreuve.setPrixunitaire(existingAchatepreuve.getPrixunitaire());
+    public void updateAchatEpreuve(AchatEpreuve newInfosAchatepreuve) {
+        AchatEpreuve updatedAchatepreuve = achatepreuveRepository.findById(newInfosAchatepreuve.getId()).orElse(null);
+        updatedAchatepreuve.setAchat(newInfosAchatepreuve.getAchat());
+        updatedAchatepreuve.setEpreuve(newInfosAchatepreuve.getEpreuve());
+        updatedAchatepreuve.setQuantite(newInfosAchatepreuve.getQuantite());
+        updatedAchatepreuve.setPrixunitaire(newInfosAchatepreuve.getPrixunitaire());
         updatedAchatepreuve.setPrixtotal();
         achatepreuveRepository.save(updatedAchatepreuve);
     }

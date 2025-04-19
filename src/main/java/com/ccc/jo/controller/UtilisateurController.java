@@ -129,7 +129,7 @@ public class UtilisateurController {
         Utilisateur existingUtilisateur = (Utilisateur) session.getAttribute("utilisateur");
         if (action.equals("boutonMajprofil")) {
             if (updatedUtilisateur.getNom() != null && updatedUtilisateur.getPrenom() != null && updatedUtilisateur.getEmail() != null && updatedUtilisateur.getConfirmermdp() != null) {
-                if (existingUtilisateur.compareMotdepasse(existingUtilisateur.getMotdepasse(), updatedUtilisateur.getConfirmermdp())) {
+                if (utilisateurService.verifMotdepasse(updatedUtilisateur.getConfirmermdp(), existingUtilisateur.getMotdepasse())) {
                     if (!existingUtilisateur.getNom().equals(updatedUtilisateur.getNom()) || !existingUtilisateur.getPrenom().equals(updatedUtilisateur.getPrenom()) || !existingUtilisateur.getEmail().equals(updatedUtilisateur.getEmail())) {
                         if (!existingUtilisateur.getEmail().equals(updatedUtilisateur.getEmail()) && utilisateurService.getUtilisateurByEmail(updatedUtilisateur.getEmail()) != null) {
                             model.addAttribute("messageErreur1", "Un autre utilisateur possede cet email");
@@ -151,7 +151,7 @@ public class UtilisateurController {
         }
         if (action.equals("boutonMajmdp")) {
             if (inputMdpact != null && inputNouvmdp != null && inputConfirmermdp != null) {
-                if (existingUtilisateur.getMotdepasse().equals(inputMdpact)) {
+                if (utilisateurService.verifMotdepasse(inputMdpact, existingUtilisateur.getMotdepasse())) {
                     if (!inputMdpact.equals(inputNouvmdp)) {
                         if (inputNouvmdp.equals(inputConfirmermdp)) {
                             updatedUtilisateur.setId(existingUtilisateur.getId());

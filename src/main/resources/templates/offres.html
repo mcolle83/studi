@@ -5,8 +5,8 @@
         <form method="post" th:action="@{/offres}" th:object="${epreuve}" class="row row-cols-1 row-cols-md-3" id="liste-epreuves">
             <div class='col' th:each="epreuve: ${epreuves}">
             <div class="card text-center border-info mb-3">
-            <img th:src="${epreuve.image}" class="card-img-top" alt="Image" />
-            <h5 class="card-title text-info" style="text-align:center;"><img th:class="logo- + ${epreuve.discipline}" th:src="@{logo_ + ${epreuve.discipline} + .svg}" th:text="${epreuve.discipline}" alt="Image" width=40 height=40 /></h5>
+            <img th:src="${epreuve.image}" class="card-img-top" alt="" />
+            <h5 class="card-title text-info" style="text-align:center;"><img th:class="logo- + ${epreuve.discipline}" th:src="@{logo_ + ${epreuve.discipline} + .svg}" th:text="${epreuve.discipline}" alt="" width=40 height=40 /></h5>
             <hr>
             <p class="card-text" th:text="${epreuve.nom}"></p>
             <hr>
@@ -20,9 +20,9 @@
             <hr>
             <p class="card-text" th:text="${epreuve.prix} + ' €'"></p>
             <hr>
-            <p class="card-text"><button class="btn" name="action" th:value="'boutonReserverSolo' + ${epreuve.id}" style="background-color: #00c7be;" type="submit">Réserver solo (1 place)</button>
-            <button class="btn" name="action" th:value="'boutonReserverDuo' + ${epreuve.id}" style="background-color: #00c7be;" type="submit">Réserver duo (2 places)</button>
-            <button class="btn" name="action" th:value="'boutonReserverFamille' + ${epreuve.id}" style="background-color: #00c7be;" type="submit">Réserver famille (4 places)</button></p>
+            <p class="card-text"><button class="btn" name="action" th:if="${epreuve.capacite >= 1}" th:value="'boutonReserverSolo' + ${epreuve.id}" style="background-color: #00c7be;" type="submit">Réserver solo (1 place)</button>
+            <button class="btn" name="action" th:if="${epreuve.capacite >= 2}" th:value="'boutonReserverDuo' + ${epreuve.id}" style="background-color: #00c7be;" type="submit">Réserver duo (2 places)</button>
+            <button class="btn" name="action" th:if="${epreuve.capacite >= 4}" th:value="'boutonReserverFamille' + ${epreuve.id}" style="background-color: #00c7be;" type="submit">Réserver famille (4 places)</button></p>
             </div>
             </div>
         </form>

@@ -14,4 +14,6 @@ public interface EpreuveService {
     void updateEpreuve(Epreuve updatedEpreuve);
 
     void deleteEpreuve(Long id);
+
+    void reduceEpreuveCapacite(Long id, Integer quantite);
 }

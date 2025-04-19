@@ -9,6 +9,7 @@ import com.ccc.jo.model.Response;
 import com.ccc.jo.model.Utilisateur;
 import com.ccc.jo.service.AchatEpreuveService;
 import com.ccc.jo.service.AchatService;
+import com.ccc.jo.service.EpreuveService;
 import com.ccc.jo.service.PanierEpreuveService;
 import com.ccc.jo.service.PanierService;
 import com.stripe.exception.StripeException;
@@ -32,13 +33,15 @@ public class PaymentIntentController {
     private final PanierEpreuveService panierepreuveService;
     private final AchatService achatService;
     private final AchatEpreuveService achatepreuveService;
+    private final EpreuveService epreuveService;
 
     @Autowired
-    public PaymentIntentController(PanierService panierService, PanierEpreuveService panierepreuveService, AchatService achatService, AchatEpreuveService achatepreuveService) {
+    public PaymentIntentController(PanierService panierService, PanierEpreuveService panierepreuveService, AchatService achatService, AchatEpreuveService achatepreuveService, EpreuveService epreuveService) {
         this.panierService = panierService;
         this.panierepreuveService = panierepreuveService;
         this.achatService = achatService;
         this.achatepreuveService = achatepreuveService;
+        this.epreuveService = epreuveService;
     }
 
     @PostMapping("/create-payment-intent")
@@ -77,6 +80,7 @@ public class PaymentIntentController {
                         achatepreuve.setQuantite(panierepreuve.getQuantite());
                         achatepreuve.setPrixunitaire(panierepreuve.getPrixunitaire());
                         achatepreuveService.createAchatEpreuve(achatepreuve);
+                        epreuveService.reduceEpreuveCapacite(panierepreuve.getEpreuve().getId(), panierepreuve.getQuantite());
                 }
                 Achat achat = achatService.getAchatById(idachat);
                 achatService.sendEmailAchat(utilisateur, achat);

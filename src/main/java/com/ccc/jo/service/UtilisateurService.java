@@ -11,11 +11,11 @@ public interface UtilisateurService {
 
 	Utilisateur getUtilisateurByEmail(String email);
 
-	Utilisateur getUtilisateurByEmailAndMotdepasse(String email, String motdepasse);
-
     Utilisateur getUtilisateurByTokenconfirm(String tokenconfirm);
 
     void createUtilisateur(Utilisateur utilisateur);
+
+    Boolean verifMotdepasse(String motdepasse, String cryptedMotdepasse);
 
     Utilisateur loginUtilisateur(Utilisateur utilisateur);
 

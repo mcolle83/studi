@@ -16,3 +16,7 @@ Projet Spring Boot basé sur les Jeux Olympiques de Paris en 2024.
 - [x] Paiement
 - [x] Liste des achats
 - [x] Génération d'un ebillet avec un QRCode
+
+## Lien vers le site
+
+https://studi-e7e2bdae765d.herokuapp.com

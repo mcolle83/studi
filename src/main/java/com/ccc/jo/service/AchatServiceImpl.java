@@ -51,11 +51,11 @@ public class AchatServiceImpl implements AchatService {
     }
 
     @Override
-    public void updateAchat(Achat updatedAchat) {
-        Achat existingAchat = achatRepository.findById(updatedAchat.getId()).orElse(null);
-        updatedAchat.setUtilisateur(existingAchat.getUtilisateur());
-        updatedAchat.setPrixtotal(existingAchat.getPrixtotal());
-        updatedAchat.setDate(existingAchat.getDate());
+    public void updateAchat(Achat newInfosAchat) {
+        Achat updatedAchat = achatRepository.findById(newInfosAchat.getId()).orElse(null);
+        updatedAchat.setUtilisateur(newInfosAchat.getUtilisateur());
+        updatedAchat.setPrixtotal(newInfosAchat.getPrixtotal());
+        updatedAchat.setDate(newInfosAchat.getDate());
         achatRepository.save(updatedAchat);
     }
 
@@ -88,7 +88,7 @@ public class AchatServiceImpl implements AchatService {
             msg.setFrom(new InternetAddress(mailusername));
             msg.setRecipient(Message.RecipientType.TO, new InternetAddress(utilisateur.getEmail()));
             msg.setSubject("Achat effectué");
-            msg.setText("Bienvenue " + utilisateur.getPrenom() + " " + utilisateur.getNom() + " ! Vous avez fait un achat le " + achat.getDate().format(DateTimeFormatter.ofPattern("dd MMMM yyyy")) + " à " + achat.getDate().format(DateTimeFormatter.ofPattern("HH:mm")) + " . Pour récupérer le QRCode de chaque épreuve que vous avez acheté, merci d'accéder à 'Mes achats effectues' .");
+            msg.setText("Bienvenue " + utilisateur.getPrenom() + " " + utilisateur.getNom() + " ! Vous avez fait un achat le " + achat.getDate().format(DateTimeFormatter.ofPattern("dd MMMM yyyy")) + " à " + achat.getDate().format(DateTimeFormatter.ofPattern("HH:mm")) + ". Pour récupérer le QRCode de chaque épreuve que vous avez acheté, merci d'accéder à 'Mes achats effectués'.");
             Transport.send(msg);
             } catch (MessagingException e) {
             System.out.println("Une erreur est arrivée lors de l'envoi d'email");
