@@ -4,6 +4,7 @@ import com.ccc.jo.model.Utilisateur;
 import com.ccc.jo.service.UtilisateurService;
 
 import jakarta.servlet.http.HttpSession;
+import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -153,13 +154,17 @@ public class UtilisateurController {
             if (inputMdpact != null && inputNouvmdp != null && inputConfirmermdp != null) {
                 if (utilisateurService.verifMotdepasse(inputMdpact, existingUtilisateur.getMotdepasse())) {
                     if (!inputMdpact.equals(inputNouvmdp)) {
-                        if (inputNouvmdp.equals(inputConfirmermdp)) {
-                            updatedUtilisateur.setId(existingUtilisateur.getId());
-                            updatedUtilisateur = utilisateurService.updateMotdepasse(updatedUtilisateur.getId(), inputNouvmdp);                  
-                            session.setAttribute("utilisateur", updatedUtilisateur);
-                            model.addAttribute("messageSucces2", "Votre mot de passe a été mis à jour avec succès");
+                        if (Pattern.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$", inputNouvmdp)) {
+                            if (inputNouvmdp.equals(inputConfirmermdp)) {
+                                updatedUtilisateur.setId(existingUtilisateur.getId());
+                                updatedUtilisateur = utilisateurService.updateMotdepasse(updatedUtilisateur.getId(), inputNouvmdp);                  
+                                session.setAttribute("utilisateur", updatedUtilisateur);
+                                model.addAttribute("messageSucces2", "Votre mot de passe a été mis à jour avec succès");
+                            } else {
+                                model.addAttribute("messageErreur2", "Les deux nouveaux mots de passes sont différents");
+                            }
                         } else {
-                            model.addAttribute("messageErreur2", "Les deux nouveaux mots de passes sont différents");
+                            model.addAttribute("messageErreur2", "Le nouveau mot de passe doit avoir 8 caractères minimum, et doit inclure au moins une lettre majuscule, une lettre minuscule, un chiffre, et un caractère spécial");
                         }
                     } else {
                         model.addAttribute("messageErreur2", "Le nouveau mot de passe ne peut pas être le même que celui actuel");

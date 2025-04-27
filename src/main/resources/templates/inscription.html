@@ -16,8 +16,8 @@
       <input type="email" class="form-control" name="inputEmail" th:field="*{email}" placeholder="nom@gmail.com" required>
     </div>
     <div class="col-md-6">
-      <label for="inputMotdepasse" class="form-label">Mot de passe</label>
-      <input type="password" class="form-control" name="inputMotdepasse" th:field="*{motdepasse}" required>
+      <label for="inputMotdepasse" class="form-label">Mot de passe <small>(8 caractères minimum, doit inclure au moins une lettre majuscule, une lettre minuscule, un chiffre, et un caractère spécial)</small></label>
+      <input type="password" class="form-control" name="inputMotdepasse" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" th:field="*{motdepasse}" required>
     </div>
     <div class="col-md-6">
       <label for="inputConfirmermdp" class="form-label">Confirmer mot de passe</label>
