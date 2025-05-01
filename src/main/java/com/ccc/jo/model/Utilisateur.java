@@ -26,6 +26,10 @@ public class Utilisateur {
     private String tokenconfirm;
     @Column(nullable=false)
     private Boolean active;
+    @Column(nullable=false, unique=true)
+    private String gauthsecret;
+    @Transient
+    private Integer codeotp;
 
     public Utilisateur() {}
 
@@ -69,6 +73,12 @@ public class Utilisateur {
 
     public Boolean getActive() { return active; }
     public void setActive(Boolean active) { this.active = active; }
+
+    public String getGauthsecret() { return gauthsecret; }
+    public void setGauthsecret(String gauthsecret) { this.gauthsecret = gauthsecret; }
+
+    public Integer getCodeotp() { return codeotp; }
+    public void setCodeotp(Integer codeotp) { this.codeotp = codeotp; }
 
     public Boolean compareMotdepasse(String motdepasse, String confirmermdp) { return motdepasse.equals(confirmermdp); }
 

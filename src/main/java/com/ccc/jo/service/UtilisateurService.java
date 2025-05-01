@@ -28,4 +28,6 @@ public interface UtilisateurService {
     void sendEmailConfirmation(Utilisateur utilisateur);
 
     void activeUtilisateur(String tokenconfirm);
+
+    boolean isValidotp(String secret, Integer code);
 }

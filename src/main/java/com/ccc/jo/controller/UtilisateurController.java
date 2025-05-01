@@ -46,6 +46,11 @@ public class UtilisateurController {
 		return "contact";
 	}
 
+    @GetMapping("/faq")
+	public String showFAQ() {
+		return "faq";
+	}
+
     @GetMapping("/inscription")
     public String showInscriptionForm(Model model, HttpSession session) {
         if (session.getAttribute("utilisateur") == null) {
@@ -101,15 +106,15 @@ public class UtilisateurController {
 	@PostMapping("/connexion")
 	public String loginUtilisateur(Model model, @ModelAttribute("utilisateur") Utilisateur utilisateur, HttpSession session) {
         Utilisateur loggedutilisateur = utilisateurService.loginUtilisateur(utilisateur);
-		if (loggedutilisateur != null) {
+        if (loggedutilisateur != null && utilisateurService.isValidotp(loggedutilisateur.getGauthsecret(), utilisateur.getCodeotp())) {
             if (loggedutilisateur.getActive().equals(true)) {
                 session.setAttribute("utilisateur", loggedutilisateur);
 		        return "redirect:/";
             }else{
                 model.addAttribute("messageErreur", "Le compte n'est pas activé. Vous devez cliquer sur le lien fourni dans l'email envoyé lors de votre inscription.");
-                return "connexion"; 
+                return "connexion";
         }}else{
-			model.addAttribute("messageErreur", "Email ou mot de passe incorrect");
+			model.addAttribute("messageErreur", "Email, mot de passe ou code OTP incorrect");
 			return "connexion";
         }	
     }

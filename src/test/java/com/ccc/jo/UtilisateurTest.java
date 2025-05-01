@@ -93,6 +93,12 @@ public class UtilisateurTest {
   	}
 
 	@Test
+  	public void testFAQ() throws Exception {
+    mockMvc.perform(MockMvcRequestBuilders.get("/faq"))
+       .andExpect(MockMvcResultMatchers.status().isOk());
+  	}
+
+	@Test
   	public void testInscriptionForm() throws Exception {
     mockMvc.perform(MockMvcRequestBuilders.get("/inscription"))
        .andExpect(MockMvcResultMatchers.status().isOk());

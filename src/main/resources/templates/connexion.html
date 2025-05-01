@@ -13,6 +13,11 @@
           <input type="password" class="form-control" name="inputMotdepasse" th:field="*{motdepasse}" required>
         </div>
         <div class="col-9"></div>
+        <div class="col-3">
+          <label for="inputCodeotp" class="form-label">Code OTP <small>(Google Authenticator)</small></label>
+          <input type="number" class="form-control" name="inputCodeotp" th:field="*{codeotp}" required>
+        </div>
+        <div class="col-9"></div>
         <div class="col-12">
             <label for="boutonInscription" class="form-label">Pas de compte ?</label>
             <a class="btn btn-secondary" href="/inscription" role="button" name="boutonInscription">S'inscrire</a>

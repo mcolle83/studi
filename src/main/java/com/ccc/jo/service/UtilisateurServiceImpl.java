@@ -2,16 +2,28 @@ package com.ccc.jo.service;
 
 import com.ccc.jo.model.Utilisateur;
 import com.ccc.jo.repository.UtilisateurRepository;
+import com.google.zxing.*;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.warrenstrange.googleauth.*;
 
+import jakarta.activation.DataHandler;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
+import jakarta.mail.util.ByteArrayDataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
+import java.io.IOException;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.util.*;
+
+import javax.imageio.ImageIO;
 
 @Service
 public class UtilisateurServiceImpl implements UtilisateurService {
@@ -59,6 +71,10 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         newUtilisateur.setActive(false);
         utilisateur.setTokenconfirm(UUID.randomUUID().toString());
         newUtilisateur.setTokenconfirm(utilisateur.getTokenconfirm());
+        GoogleAuthenticator gAuth = new GoogleAuthenticator();
+        final GoogleAuthenticatorKey key = gAuth.createCredentials();
+        utilisateur.setGauthsecret(key.getKey());
+        newUtilisateur.setGauthsecret(utilisateur.getGauthsecret());
         utilisateurRepository.save(newUtilisateur);
     }
 
@@ -113,9 +129,27 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
     @Override
     public void sendEmailConfirmation(Utilisateur utilisateur) {
+        String url = GoogleAuthenticatorQRGenerator.getOtpAuthTotpURL(
+            "mcolle83 JO Studi",
+            utilisateur.getEmail(),
+            new GoogleAuthenticatorKey.Builder(utilisateur.getGauthsecret()).build());
+        String qrCode = null;
+        try {
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+            Map<EncodeHintType, Object> hintMap = new HashMap<>();
+            hintMap.put(EncodeHintType.CHARACTER_SET, "UTF-8");
+            BitMatrix bitMatrix = qrCodeWriter.encode(url, BarcodeFormat.QR_CODE, 200, 200, hintMap);
+            BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(bufferedImage, "png", baos);
+            byte[] imageBytes = baos.toByteArray();
+            qrCode = Base64.getEncoder().encodeToString(imageBytes);
+        } catch (WriterException | IOException e) {
+            e.printStackTrace();
+        }
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");  
+        props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", 587);
         props.put("mail.debug", "true");
@@ -131,7 +165,20 @@ public class UtilisateurServiceImpl implements UtilisateurService {
             msg.setFrom(new InternetAddress(mailusername));
             msg.setRecipient(Message.RecipientType.TO, new InternetAddress(utilisateur.getEmail()));
             msg.setSubject("Activation du compte");
-            msg.setText("Bienvenue " + utilisateur.getPrenom() + " " + utilisateur.getNom() + " ! Pour activer votre compte sur le site de réversation des JO 2024, cliquez sur ce lien : " + link);
+            Multipart multipart = new MimeMultipart();
+            MimeBodyPart textPart = new MimeBodyPart();
+            textPart.setText("Bienvenue " + utilisateur.getPrenom() + " " + utilisateur.getNom() + " !" + "\n\n" + "Pour activer votre compte sur le site de réversation des JO 2024, cliquez sur ce lien : " + link + "\n\n" + "Pour obtenir votre code OTP, scannez le QR Code, dans la pièce jointe, avec Google Authenticator.");
+            multipart.addBodyPart(textPart);
+            if (qrCode != null) {
+            MimeBodyPart imgPart = new MimeBodyPart();
+            byte[] rawImg = Base64.getDecoder().decode(qrCode);
+            ByteArrayDataSource imgDataSource = new ByteArrayDataSource(rawImg,"image/png");
+            imgPart.setDataHandler(new DataHandler(imgDataSource));
+            imgPart.setHeader("Content-ID", "<qrImage>");
+            imgPart.setFileName("GAuthQRCode.png");
+            multipart.addBodyPart(imgPart);
+            }
+            msg.setContent(multipart);
             Transport.send(msg);
             } catch (MessagingException e) {
             System.out.println("Une erreur est arrivée lors de l'envoi d'email");
@@ -143,5 +190,13 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         Utilisateur activeUtilisateur = utilisateurRepository.findByTokenconfirm(tokenconfirm);
         activeUtilisateur.setActive(true);
         utilisateurRepository.save(activeUtilisateur);
+    }
+
+    @Override
+    public boolean isValidotp(String secret, Integer code) {
+        GoogleAuthenticator gAuth = new GoogleAuthenticator(
+                new GoogleAuthenticatorConfig.GoogleAuthenticatorConfigBuilder().build()
+        );
+        return gAuth.authorize(secret, code);
     }
 }
