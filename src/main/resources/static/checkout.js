@@ -63,7 +63,7 @@ async function handleSubmit(e) {
     const { error } = await stripe.confirmPayment({
         elements,
         confirmParams: {
-            return_url: "https://dashboard.stripe.com/test/payments/"+paymentIntentID,
+            return_url: "https://studi-e7e2bdae765d.herokuapp.com/listeachatsutil",
             receipt_email: emailAddress
         },
     });

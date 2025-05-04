@@ -25,7 +25,7 @@ public class QRCodeController {
     @GetMapping(value = "/qrcode/png", produces = MediaType.IMAGE_PNG_VALUE)
     public ResponseEntity<byte[]> generateQRCodePNG(Model model,  @RequestParam AchatEpreuve achatepreuve) throws Exception {
         AchatEpreuve achatepreuvechoisi = achatepreuveService.getAchatEpreuveById(achatepreuve.getId());
-        String text = "Contenu [ " + achatepreuvechoisi.getAchat().getUtilisateur().getEmail() + " , " + achatepreuvechoisi.getAchat().getCle() + " , " + achatepreuvechoisi.getEpreuve().getNom() + " , " + achatepreuvechoisi.getQuantite() + " ]";
+        String text = "Contenu [ " + achatepreuvechoisi.getAchat().getUtilisateur().getEmail() + " , " + achatepreuvechoisi.getAchat().getCle() + " , " + achatepreuvechoisi.getEpreuve().getNom() + " (" + achatepreuvechoisi.getEpreuve().getDiscipline() + ") , " + achatepreuvechoisi.getQuantite() + " ]";
         byte[] qrCodeByteValue = qrCodeService.generateQRCodeImage(text, 400, 400);
         return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(qrCodeByteValue);
     }

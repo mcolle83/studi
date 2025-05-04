@@ -37,7 +37,7 @@
             <ul class="list-group list-group-horizontal">
             <li class="col-1 list-group-item flex-fill" th:text="${achatepreuve.achat.utilisateur.prenom + ' ' + achatepreuve.achat.utilisateur.nom + ' &#40;' + achatepreuve.achat.utilisateur.email + '&#41;'}"></li>
             <li class="col-1 list-group-item flex-fill" th:text="${#temporals.format(achatepreuve.achat.date, 'dd MMMM yyyy, HH:mm')}"></li>
-            <li class="col-1 list-group-item flex-fill" th:text="${achatepreuve.epreuve.nom}"></li>
+            <li class="col-1 list-group-item flex-fill" th:text="${achatepreuve.epreuve.nom + ' &#40;' + achatepreuve.epreuve.discipline + '&#41;'}"></li>
             <li class="col-1 list-group-item flex-fill" th:text="${achatepreuve.quantite}"></li>
             <li class="col-1 list-group-item flex-fill" th:text="${achatepreuve.prixtotal + ' €'}"></li>
             </ul>
