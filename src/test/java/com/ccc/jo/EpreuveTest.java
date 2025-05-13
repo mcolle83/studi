@@ -55,35 +55,53 @@ public class EpreuveTest {
 	epreuve = null;
   	}
 
+	/**
+	* Vérifie que le Controller de Epreuve existe
+	*/
 	@Test
 	void contextLoads() throws Exception {
 		assertThat(epreuveController).isNotNull();
 	}
 
+	/**
+	* Accède à la liste des offres
+	*/
 	@Test
   	public void testOffres() throws Exception {
     mockMvc.perform(MockMvcRequestBuilders.get("/offres"))
        .andExpect(MockMvcResultMatchers.status().isOk());
   	}
 
+	/**
+	* Accède au formulaire de création d'offre
+	*/
 	@Test
   	public void testCreateOffreForm() throws Exception {
     mockMvc.perform(MockMvcRequestBuilders.get("/creationoffre"))
        .andExpect(MockMvcResultMatchers.status().isOk());
   	}
 
+	/**
+	* Accède au formulaire de gestion des offres
+	*/
 	@Test
   	public void testOffresForm() throws Exception {
     mockMvc.perform(MockMvcRequestBuilders.get("/gestionoffres"))
        .andExpect(MockMvcResultMatchers.status().isOk());
   	}
 
+	/**
+	* Récupère toutes les épreuves
+	*/
     @Test
 	public void testGetAllEpreuves() throws Exception {
 	List<Epreuve> result = epreuveService.getAllEpreuves();
 	assertNotNull(result);
 	}
-	
+
+	/**
+	* Récupère l'épreuve par son identifiant
+	*/
     @Test
  	public void testGetEpreuveById() throws Exception {
 	Mockito.when(epreuveRepository.findById(1L)).thenReturn(Optional.of(epreuve));

@@ -80,29 +80,44 @@ public class AchatTest {
     achatepreuve = null;
   	}
 
+	/**
+	* Vérifie que le Controller de Achat existe
+	*/
     @Test
 	void contextLoads() throws Exception {
 		assertThat(achatController).isNotNull();
 	}
 
+	/**
+	* Accède à la liste des achats effectués par l'utilisateur
+	*/
     @Test
   	public void testShowAchatsutil() throws Exception {
     mockMvc.perform(MockMvcRequestBuilders.get("/listeachatsutil"))
        .andExpect(MockMvcResultMatchers.status().isOk());
   	}
 
+	/**
+	* Accède à la liste de tous les achats effectués
+	*/
     @Test
   	public void testShowAchatsadmin() throws Exception {
     mockMvc.perform(MockMvcRequestBuilders.get("/listeachatsadmin"))
        .andExpect(MockMvcResultMatchers.status().isOk());
   	}
 
+	/**
+	* Récupère tous les achats
+	*/
     @Test
 	public void testGetAllAchats() throws Exception {
 	List<Achat> result = achatService.getAllAchats();
 	assertNotNull(result);
 	}
 
+	/**
+	* Récupère l'achat par son identifiant
+	*/
     @Test
  	public void testGetAchatById() throws Exception {
 	Mockito.when(achatRepository.findById(1L)).thenReturn(Optional.of(achat));
@@ -113,18 +128,27 @@ public class AchatTest {
 	assertEquals(BigDecimal.valueOf(10.00), result.getPrixtotal());
  	}
 
+	/**
+	* Récupère tous les achats effectués par l'utilisateur
+	*/
     @Test
     public void testGetAllAchatsByUtilisateur() throws Exception {
     List<Achat> result = achatService.getAllAchatsByUtilisateur(utilisateur);
     assertNotNull(result);
     }
 
+	/**
+	* Récupère toutes les épreuves de tous les achats
+	*/
     @Test
 	public void testGetAllAchatEpreuves() throws Exception {
 	List<AchatEpreuve> result = achatepreuveService.getAllAchatEpreuves();
 	assertNotNull(result);
 	}
 
+	/**
+	* Récupère l'épreuve de l'achat par son identifiant
+	*/
     @Test
     public void testGetAchatEpreuveById() throws Exception {
     Mockito.when(achatepreuveRepository.findById(1L)).thenReturn(Optional.of(achatepreuve));
@@ -137,6 +161,9 @@ public class AchatTest {
     assertEquals(BigDecimal.valueOf(10.00), result.getPrixtotal());
     }
 
+	/**
+	* Compte le nombre d'achats pour chaque quantité
+	*/
     @Test
 	public void testGetAchatEpreuveCountByQuantite() throws Exception {
     Long result1 = achatepreuveService.getAchatEpreuveCountByQuantite(1);

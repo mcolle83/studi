@@ -21,36 +21,57 @@ public class UtilisateurController {
         this.utilisateurService = utilisateurService;
     }
 
+    /**
+    * Accède à la page d'accueil
+    */
 	@GetMapping("/")
 	public String showAccueil() {
 		return "accueil";
 	}
 
+    /**
+    * Accède aux mentions légales
+    */
     @GetMapping("/mentionslegales")
 	public String showMentionsLegales() {
 		return "mentionslegales";
 	}
 
+    /**
+    * Accède à la politique de confidentialité
+    */
     @GetMapping("/politiqueconfid")
 	public String showPolitiqueConfid() {
 		return "politiqueconfid";
 	}
 
+    /**
+    * Accède aux conditions générales de vente
+    */
     @GetMapping("/cgv")
 	public String showCGV() {
 		return "cgv";
 	}
 
+    /**
+    * Accède à la page de contact
+    */
     @GetMapping("/contact")
 	public String showContact() {
 		return "contact";
 	}
 
+    /**
+    * Accède à la foire aux questions
+    */
     @GetMapping("/faq")
 	public String showFAQ() {
 		return "faq";
 	}
 
+    /**
+    * Accède au formulaire d'inscription
+    */
     @GetMapping("/inscription")
     public String showInscriptionForm(Model model, HttpSession session) {
         if (session.getAttribute("utilisateur") == null) {
@@ -61,6 +82,9 @@ public class UtilisateurController {
         }
     }
 
+    /**
+    * Crée un compte utilisateur après avoir cliqué sur le bouton "Confirmer l'inscription", ou envoie un message d'erreur
+    */
     @PostMapping("/inscription")
     public String createUtilisateur(Model model, @ModelAttribute("utilisateur") Utilisateur utilisateur) {
 		if (utilisateurService.getUtilisateurByEmail(utilisateur.getEmail()) == null) {
@@ -78,6 +102,9 @@ public class UtilisateurController {
 		}
     }
 
+    /**
+    * Active le compte possédant le token de confirmation inscrit dans l'url
+    */
     @GetMapping("/active={tokenconfirm}")
 	public String showConfirmutilisateur(Model model, @PathVariable String tokenconfirm, HttpSession session) {
         if (utilisateurService.getUtilisateurByTokenconfirm(tokenconfirm) != null){
@@ -93,6 +120,9 @@ public class UtilisateurController {
         }
 	}
 
+    /**
+    * Accède à la page de connexion
+    */
 	@GetMapping("/connexion")
 	public String showConnexionForm(Model model, HttpSession session) {
         if (session.getAttribute("utilisateur") == null) {
@@ -103,6 +133,9 @@ public class UtilisateurController {
         }
 	}
 
+    /**
+    * Se connecte après avoir cliqué sur le bouton "Se connecter", ou envoie un message d'erreur
+    */
 	@PostMapping("/connexion")
 	public String loginUtilisateur(Model model, @ModelAttribute("utilisateur") Utilisateur utilisateur, HttpSession session) {
         Utilisateur loggedutilisateur = utilisateurService.loginUtilisateur(utilisateur);
@@ -119,6 +152,9 @@ public class UtilisateurController {
         }	
     }
 
+    /**
+    * Accède à la page du compte client
+    */
     @GetMapping("/compteclient")
     public String showEditForm(Model model, HttpSession session) {
         if (session.getAttribute("utilisateur") != null) {
@@ -130,6 +166,9 @@ public class UtilisateurController {
         }
     }
 
+    /**
+    * Met à jour l'email, le nom et le prénom après avoir cliqué sur le bouton "Mettre à jour le profil", ou met à jour le mot de passe après avoir cliqué sur le bouton "Mettre à jour le mot de passe", ou envoie un message d'erreur
+    */
     @PostMapping("/compteclient")
     public String updateUtilisateur(Model model, @ModelAttribute("utilisateur") Utilisateur updatedUtilisateur, @RequestParam String inputMdpact, @RequestParam String inputNouvmdp, @RequestParam String inputConfirmermdp, @RequestParam(value="action", required=true) String action, HttpSession session) {
         Utilisateur existingUtilisateur = (Utilisateur) session.getAttribute("utilisateur");

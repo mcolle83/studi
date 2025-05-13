@@ -68,29 +68,44 @@ public class PanierTest {
 	panier = null;
   	}
 
+	/**
+	* Vérifie que le Controller de Panier existe
+	*/
     @Test
 	void contextLoads() throws Exception {
 		assertThat(panierController).isNotNull();
 	}
 
+	/**
+	* Accède à la liste des offres
+	*/
 	@Test
   	public void testOffres() throws Exception {
     mockMvc.perform(MockMvcRequestBuilders.get("/offres"))
        .andExpect(MockMvcResultMatchers.status().isOk());
   	}
 
+	/**
+	* Accède au panier
+	*/
 	@Test
   	public void testPanier() throws Exception {
     mockMvc.perform(MockMvcRequestBuilders.get("/panier"))
        .andExpect(MockMvcResultMatchers.status().isOk());
   	}
 
+	/**
+	* Accède au paiement
+	*/
 	@Test
   	public void testPaiement() throws Exception {
     mockMvc.perform(MockMvcRequestBuilders.get("/paiement"))
        .andExpect(MockMvcResultMatchers.status().isOk());
   	}
 
+	/**
+	* Récupère le panier par l'identifiant de la session
+	*/
     @Test
  	public void testGetPanierByIdsession() throws Exception {
 	Mockito.when(panierRepository.findByIdsession("1a2b3c")).thenReturn(panier);

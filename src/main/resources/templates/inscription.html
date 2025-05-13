@@ -24,6 +24,14 @@
       <input type="password" class="form-control" name="inputConfirmermdp" th:field="*{confirmermdp}" required>
     </div>
     <div class="col-12">
+      <input type="checkbox" name="inputAccepterconfid" required/>
+      <label for="inputAccepterconfid" class="form-label">Je reconnais avoir lu la politique de confidentialité et j'accepte le traitement proposé de mes données à caractère personnelle</label>
+    </div>
+    <div class="col-12">
+      <input type="checkbox" name="inputAcceptercgv" required/>
+      <label for="inputAcceptercgv" class="form-label">Je reconnais avoir pris connaissance des conditions générales de vente et je les accepte</label>
+    </div>
+    <div class="col-12">
       <button type="submit" class="btn btn-primary" name="boutonConfirmerinscription">Confirmer l&#39;inscription</button>
       <p class="text-danger" name="messageErreur" th:text="${messageErreur}"></p>
       <p class="text-success" name="messageSucces" th:text="${messageSucces}"></p>

@@ -23,6 +23,9 @@ public class EpreuveController {
         this.epreuveService = epreuveService;
     }
 
+    /**
+    * Accède à la liste des offres
+    */
 	@GetMapping("/offres")
 	public String showOffres(Model model) {
         List<Epreuve> epreuves = epreuveService.getAllEpreuves();
@@ -30,6 +33,9 @@ public class EpreuveController {
 		return "offres";
 	}
 
+    /**
+    * Accède au formulaire de création d'offre
+    */
     @GetMapping("/creationoffre")
 	public String showCreateOffreForm(Model model, HttpSession session) {
         if (session.getAttribute("utilisateur") != null) {
@@ -45,6 +51,9 @@ public class EpreuveController {
         }
 	}
 
+    /**
+    * Crée une offre
+    */
     @PostMapping("/creationoffre")
     public String createOffre(Model model, @ModelAttribute("epreuve") Epreuve epreuve) {
         epreuveService.createEpreuve(epreuve);
@@ -52,6 +61,9 @@ public class EpreuveController {
         return "creationoffre";
     }
 
+    /**
+    * Accède au formulaire de gestion des offres
+    */
     @GetMapping("/gestionoffres")
 	public String showOffresForm(Model model, HttpSession session) {
         if (session.getAttribute("utilisateur") != null) {
@@ -69,6 +81,9 @@ public class EpreuveController {
         }
 	}
 
+    /**
+    * Met à jour une offre après avoir cliqué sur le bouton "Modifier l'offre" ou le bouton "Supprimer l'offre"
+    */
     @PostMapping("/gestionoffres")
     public String updateOffre(Model model, @ModelAttribute("epreuve") Epreuve epreuve, @RequestParam(value="action", required=true) String action) {
         if (action.equals("boutonModifieroffre")) {

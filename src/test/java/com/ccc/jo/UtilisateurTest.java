@@ -57,71 +57,107 @@ public class UtilisateurTest {
 	utilisateur = null;
   	}
 
+	/**
+	* Vérifie que le Controller d'Utilisateur existe
+	*/
 	@Test
 	void contextLoads() throws Exception {
 		assertThat(utilisateurController).isNotNull();
 	}
-	
+
+	/**
+	* Accède à la page d'accueil
+	*/
 	@Test
   	public void testAccueil() throws Exception {
     mockMvc.perform(MockMvcRequestBuilders.get("/"))
        .andExpect(MockMvcResultMatchers.status().isOk());
   	}
 
+	/**
+	* Accède aux mentions légales
+	*/
 	@Test
   	public void testMentionsLegales() throws Exception {
     mockMvc.perform(MockMvcRequestBuilders.get("/mentionslegales"))
        .andExpect(MockMvcResultMatchers.status().isOk());
   	}
 
+	/**
+	* Accède à la politique de confidentialité
+	*/
 	@Test
   	public void testPolitiqueConfid() throws Exception {
     mockMvc.perform(MockMvcRequestBuilders.get("/politiqueconfid"))
        .andExpect(MockMvcResultMatchers.status().isOk());
   	}
 
+	/**
+	* Accède aux conditions générales de vente
+	*/
 	@Test
   	public void testCGV() throws Exception {
     mockMvc.perform(MockMvcRequestBuilders.get("/cgv"))
        .andExpect(MockMvcResultMatchers.status().isOk());
   	}
 
+	/**
+	* Accède à la page de contact
+	*/
 	@Test
   	public void testContact() throws Exception {
     mockMvc.perform(MockMvcRequestBuilders.get("/contact"))
        .andExpect(MockMvcResultMatchers.status().isOk());
   	}
 
+	/**
+	* Accède à la foire aux questions
+	*/
 	@Test
   	public void testFAQ() throws Exception {
     mockMvc.perform(MockMvcRequestBuilders.get("/faq"))
        .andExpect(MockMvcResultMatchers.status().isOk());
   	}
 
+	/**
+	* Accède au formulaire d'inscription
+	*/
 	@Test
   	public void testInscriptionForm() throws Exception {
     mockMvc.perform(MockMvcRequestBuilders.get("/inscription"))
        .andExpect(MockMvcResultMatchers.status().isOk());
   	}
 
+	/**
+	* Accède à la page de connexion
+	*/
 	@Test
   	public void testConnexionForm() throws Exception {
     mockMvc.perform(MockMvcRequestBuilders.get("/connexion"))
        .andExpect(MockMvcResultMatchers.status().isOk());
   	}
 
+	/**
+	* Accède à la page du compte client
+	*/
 	@Test
   	public void testEditForm() throws Exception {
     mockMvc.perform(MockMvcRequestBuilders.get("/compteclient"))
        .andExpect(MockMvcResultMatchers.status().isOk());
   	}
 
+	/**
+	* Récupère tous les utilisateurs
+	*/
 	@Test
 	public void testGetAllUtilisateurs() throws Exception {
 	List<Utilisateur> result = utilisateurService.getAllUtilisateurs();
 	assertNotNull(result);
 	}
 
+	/**
+	* Récupère l'utilisateur par son identifiant
+	*/
 	@Test
  	public void testGetUtilisateurById() throws Exception {
 	Mockito.when(utilisateurRepository.findById(1L)).thenReturn(Optional.of(utilisateur));
@@ -133,6 +169,9 @@ public class UtilisateurTest {
   	assertEquals("leonmarchand@gmail.com", result.getEmail());
  	}
 
+	/**
+	* Récupère l'utilisateur par son email
+	*/
 	@Test
   	public void testGetUtilisateurByEmail() throws Exception {
 	Mockito.when(utilisateurRepository.findByEmail("leonmarchand@gmail.com")).thenReturn(utilisateur);
@@ -143,6 +182,9 @@ public class UtilisateurTest {
   	assertEquals("leonmarchand@gmail.com", result.getEmail());
   	}
 
+	/**
+	* Récupère l'utilisateur par son token de confirmation
+	*/
 	@Test
   	public void testGetUtilisateurByTokenconfirm() throws Exception {
 	utilisateur.setTokenconfirm("a1b2c3");
@@ -154,6 +196,9 @@ public class UtilisateurTest {
   	assertEquals("leonmarchand@gmail.com", result.getEmail());
   	}
 
+	/**
+	* Vérifie que le mot de passe en clair est identique au mot de passe haché
+	*/
 	@Test
   	public void testVerifMotdepasse() throws Exception {
 	Mockito.when(utilisateurRepository.findByEmail("leonmarchand@gmail.com")).thenReturn(utilisateur);
@@ -161,6 +206,9 @@ public class UtilisateurTest {
    	assertTrue(result);
   	}
 
+	/**
+	* Récupère l'utilisateur par son email et son mot de passe
+	*/
 	@Test
   	public void testLoginUtilisateur() throws Exception {
 	Utilisateur logUtilisateur = new Utilisateur();
@@ -174,6 +222,9 @@ public class UtilisateurTest {
   	assertEquals("leonmarchand@gmail.com", result.getEmail());
   	}
 
+	/**
+	* Met à jour le nom, prénom et email de l'utilisateur
+	*/
 	@Test
   	public void testUpdateUtilisateur() throws Exception {
 	Mockito.when(utilisateurRepository.findById(1L)).thenReturn(Optional.of(utilisateur));
@@ -183,6 +234,9 @@ public class UtilisateurTest {
   	assertEquals("florentmanaudou@gmail.com", result.getEmail());
   	}
 
+	/**
+	* Met à jour le mot de passe de l'utilisateur
+	*/
 	@Test
   	public void testUpdateMotdepasse() throws Exception {
 	Mockito.when(utilisateurRepository.findById(1L)).thenReturn(Optional.of(utilisateur));

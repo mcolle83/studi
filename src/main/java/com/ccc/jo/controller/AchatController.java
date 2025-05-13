@@ -23,7 +23,10 @@ public class AchatController {
     public AchatController(AchatEpreuveService achatepreuveService) {
         this.achatepreuveService = achatepreuveService;
     }
-    
+
+    /**
+    * Accède à la liste des achats effectués par l'utilisateur
+    */
     @GetMapping("/listeachatsutil")
 	public String showAchatsutil(Model model, HttpSession session) {
         if (session.getAttribute("utilisateur") != null) {
@@ -36,6 +39,9 @@ public class AchatController {
         }
 	}
 
+    /**
+    * Accède à la liste de tous les achats effectués
+    */
     @GetMapping("/listeachatsadmin")
 	public String showAchatsadmin(Model model, HttpSession session) {
         if (session.getAttribute("utilisateur") != null) {

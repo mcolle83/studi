@@ -32,6 +32,9 @@ public class PanierController {
         this.panierepreuveService = panierepreuveService;
     }
     
+    /**
+    * Ajoute une épreuve dans le panier après avoir cliqué soit sur le bouton "Réserver solo (1 place)", soit sur le bouton "Réserver duo (2 places)", soit sur le bouton "Réserver famille (4 places)"
+    */
     @PostMapping("/offres")
 	public String addPanier(Model model, @ModelAttribute("epreuve") Epreuve epreuve, @RequestParam(value="action", required=true) String action, HttpSession session) {
         String idsession = session.getId();
@@ -60,6 +63,9 @@ public class PanierController {
         return "redirect:/offres";
 	}
 
+    /**
+    * Accède au panier
+    */
     @GetMapping("/panier")
 	public String showPanier(Model model, HttpSession session) {
         String idsession = session.getId();
@@ -76,6 +82,9 @@ public class PanierController {
 		return "panier";
 	}
 
+    /**
+    * Modifie le nombre de places réservées pour une épreuve après avoir cliqué sur le bouton "-" ou le bouton "+"
+    */
     @PostMapping("/panier")
 	public String manageOffre(Model model, @RequestParam(value="action", required=true) String action, HttpSession session) {
         Long idpanier = panierService.getPanierByIdsession(session.getId()).getId();
@@ -101,6 +110,9 @@ public class PanierController {
 		return "redirect:/panier";
 	}
 
+    /**
+    * Accède au paiement
+    */
     @GetMapping("/paiement")
     public String showCard(Request request, Model model, HttpSession session){
         if (panierService.getPanierByIdsession(session.getId()) == null || session.getAttribute("utilisateur") == null){
@@ -121,6 +133,9 @@ public class PanierController {
         return "checkout";
     }
 
+    /**
+    * Se déconnecte de la session et vide le panier
+    */
 	@GetMapping("/deconnexion")
 	public String logoutUtilisateur(Model model, HttpSession session) {
         if (panierService.getPanierByIdsession(session.getId()) != null) {

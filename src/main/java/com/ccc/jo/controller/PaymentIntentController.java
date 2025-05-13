@@ -44,6 +44,9 @@ public class PaymentIntentController {
         this.epreuveService = epreuveService;
     }
 
+    /**
+    * Finalise le paiement et déplace le contenu du panier dans la liste des achats
+    */
     @PostMapping("/create-payment-intent")
     public Response createPaymentIntent(@RequestBody Request request, HttpSession session)
             throws StripeException {
