@@ -76,7 +76,7 @@ public class Epreuve {
     public void setDescription(String description) { this.description = description; }
 
     public MultipartFile getImagefile() { return imagefile; }
-    public void setImage(MultipartFile imagefile) { this.imagefile = imagefile; }
+    public void setImagefile(MultipartFile imagefile) { this.imagefile = imagefile; }
 
     public String getImage() { return image; }
     public void setImage(String image) { this.image = image; }
