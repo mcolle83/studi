@@ -3,6 +3,8 @@ package com.ccc.jo.model;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -27,7 +29,9 @@ public class Epreuve {
     private BigDecimal prix;
     @Column(nullable=true)
     private String description;
-    @Column(nullable=false)
+    @Transient
+    private MultipartFile imagefile;
+    @Column(nullable=true)
     private String image;
 
     public Epreuve() {}
@@ -70,6 +74,9 @@ public class Epreuve {
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
+
+    public MultipartFile getImagefile() { return imagefile; }
+    public void setImage(MultipartFile imagefile) { this.imagefile = imagefile; }
 
     public String getImage() { return image; }
     public void setImage(String image) { this.image = image; }

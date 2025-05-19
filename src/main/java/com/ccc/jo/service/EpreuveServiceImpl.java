@@ -3,14 +3,28 @@ package com.ccc.jo.service;
 import com.ccc.jo.model.Epreuve;
 import com.ccc.jo.repository.EpreuveRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 
 import java.util.List;
+import java.io.InputStream;
 
 @Service
 public class EpreuveServiceImpl implements EpreuveService {
 
     private final EpreuveRepository epreuveRepository;
+    @Value("${aws.s3.access.key}")
+    private String awsS3AccessKey;
+    @Value("${aws.s3.secret.key}")
+    private String awsS3SecretKey;
 
     @Autowired
     public EpreuveServiceImpl(EpreuveRepository epreuveRepository) {
@@ -39,6 +53,27 @@ public class EpreuveServiceImpl implements EpreuveService {
         newEpreuve.setPrix(epreuve.getPrix());
         newEpreuve.setDescription(epreuve.getDescription());
         newEpreuve.setImage(epreuve.getImage());
+        if (epreuve.getImagefile() != null){
+            try {
+                MultipartFile file = epreuve.getImagefile();
+                String s3FileName = file.getOriginalFilename();
+                newEpreuve.setImage(s3FileName);
+                BasicAWSCredentials awsCredentials = new BasicAWSCredentials(awsS3AccessKey, awsS3SecretKey);
+                AmazonS3 amazonS3Client = AmazonS3ClientBuilder.standard()
+                    .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
+                    .withRegion(Regions.EU_WEST_3)
+                    .build();
+                InputStream inputStream = file.getInputStream();
+                ObjectMetadata objectMetadata = new ObjectMetadata();
+                objectMetadata.setContentType("image/jpeg");
+                String bucketName = "mcolle83studi";
+                PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, s3FileName, inputStream, objectMetadata);
+                amazonS3Client.putObject(putObjectRequest);
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException(e.getMessage());
+            }
+        }
         epreuveRepository.save(newEpreuve);
     }
 
@@ -54,6 +89,27 @@ public class EpreuveServiceImpl implements EpreuveService {
         updatedEpreuve.setPrix(newInfosEpreuve.getPrix());
         updatedEpreuve.setDescription(newInfosEpreuve.getDescription());
         updatedEpreuve.setImage(newInfosEpreuve.getImage());
+        if (newInfosEpreuve.getImagefile() != null){
+            try {
+                MultipartFile file = newInfosEpreuve.getImagefile();
+                String s3FileName = file.getOriginalFilename();
+                updatedEpreuve.setImage(s3FileName);
+                BasicAWSCredentials awsCredentials = new BasicAWSCredentials(awsS3AccessKey, awsS3SecretKey);
+                AmazonS3 amazonS3Client = AmazonS3ClientBuilder.standard()
+                    .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
+                    .withRegion(Regions.EU_WEST_3)
+                    .build();
+                InputStream inputStream = file.getInputStream();
+                ObjectMetadata objectMetadata = new ObjectMetadata();
+                objectMetadata.setContentType("image/jpeg");
+                String bucketName = "mcolle83studi";
+                PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, s3FileName, inputStream, objectMetadata);
+                amazonS3Client.putObject(putObjectRequest);
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException(e.getMessage());
+            }
+        }
         epreuveRepository.save(updatedEpreuve);
     }
 

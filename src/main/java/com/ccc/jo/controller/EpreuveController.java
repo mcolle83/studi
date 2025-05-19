@@ -94,6 +94,8 @@ public class EpreuveController {
             epreuveService.deleteEpreuve(epreuve.getId());
             model.addAttribute("messageSucces2", "L'épreuve a été supprimée avec succès");
         }
+        List<Epreuve> epreuves = epreuveService.getAllEpreuves();
+        model.addAttribute("epreuves", epreuves);
         return "gestionoffres";
     }
 }
